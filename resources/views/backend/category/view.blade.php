@@ -50,6 +50,10 @@
                                     <div style="float: left; margin-right: 3px">
                                         <a class="fa fa-edit btn btn-info btn-sm" title="Edit now" href="{{route('categories.edit', ['id'=>$category->id])}}"></a>
                                     </div>
+                                    @php
+                                    $category_count = \App\Models\Product::where('category_id', $category->id)->count();
+                                    @endphp
+                                    @if($category_count<=0)
                                     <div style="float:left; margin-right: 3px">
                                         <form method="POST" action="{{route('categories.delete', ['id'=>$category->id])}}">
                                             @method('DELETE')
@@ -58,6 +62,7 @@
                                             @csrf
                                         </form>
                                     </div>
+                                        @endif
                                 </td>
                             </tr>
                         @endforeach

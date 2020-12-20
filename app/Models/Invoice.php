@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Invoice extends Model
 {
     use HasFactory;
+
+    public function payment(){
+        return $this->belongsTo(Payment::class, 'id', 'invoice_id');
+    }
+
+    public function invoice_details(){
+        return $this->hasMany(InvoiceDetail::class);
+    }
+
 }

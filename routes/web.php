@@ -11,6 +11,8 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\PurchaseController;
 use App\Http\Controllers\Backend\DefaultController;
+use App\Http\Controllers\Backend\InvoiceController;
+use App\Http\Controllers\Backend\PrintInvoiceController;
 
 Route::get('/', [FrontendController::class, 'index'])->name('/');
 
@@ -91,5 +93,19 @@ Route::middleware('auth')->group(function (){
 
     Route::get('/get/category', [DefaultController::class, 'getCategory'])->name('get_category');
     Route::get('/get/product', [DefaultController::class, 'getProduct'])->name('get_product');
+    Route::get('/get/stock', [DefaultController::class, 'getStock'])->name('check_product_stock');
+
+    Route::name('invoice.')->prefix('invoice')->group(function (){
+        Route::get('/view', [InvoiceController::class, 'index'])->name('view');
+        Route::get('/add', [InvoiceController::class, 'add'])->name('add');
+        Route::post('/store', [InvoiceController::class, 'store'])->name('store');
+        Route::get('/details/{id}', [InvoiceController::class, 'details'])->name('details');
+        Route::get('/pending', [InvoiceController::class, 'pendingList'])->name('pending.list');
+        Route::get('/approve/{id}', [InvoiceController::class, 'approve'])->name('approve');
+        Route::post('/approve/store/{id}', [InvoiceController::class, 'approvalStore'])->name('approval.store');
+        Route::delete('/delete/{id}', [InvoiceController::class, 'destroy'])->name('delete');
+        Route::get('/print/list', [PrintInvoiceController::class, 'index'])->name('print.list');
+        Route::get('/print/{id}', [PrintInvoiceController::class, 'printInvoice'])->name('print');
+    });
 });
 

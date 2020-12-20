@@ -28,7 +28,8 @@
                 <div class="card-header">
                     <h3 class="text-info">
                         UNITS LIST
-                        <a class="btn btn-info float-right" href="{{route('units.add')}}"><i class="fa fa-arrow-circle-up"></i> Add unit</a>
+                        <a class="btn btn-info float-right" href="{{route('units.add')}}"><i
+                                class="fa fa-arrow-circle-up"></i> Add unit</a>
                     </h3>
                     @include('_errors')
                 </div>
@@ -47,15 +48,23 @@
                                 <td>{{$key = $key+1}}</td>
                                 <td>{{$unit->name}}</td>
                                 <td>
-                                    <div style="float: left; margin-right: 3px"><a class="fa fa-edit btn btn-info btn-sm" title="Edit now" href="{{route('units.edit', ['id'=>$unit->id])}}"></a></div>
-                                    <div style="float:left; margin-right: 3px">
-                                        <form method="POST" action="{{route('units.delete', ['id'=>$unit->id])}}">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm" title="Delete now"><i class="fa fa-trash"></i></button>
-                                            @csrf
-                                        </form>
-                                    </div>
+                                    <div style="float: left; margin-right: 3px"><a
+                                            class="fa fa-edit btn btn-info btn-sm" title="Edit now"
+                                            href="{{route('units.edit', ['id'=>$unit->id])}}"></a></div>
+                                    @php
+                                        $unit_count = \App\Models\Product::where('unit_id', $unit->id)->count()
+                                    @endphp
+                                    @if($unit_count<=0)
+                                        <div style="float:left; margin-right: 3px">
+                                            <form method="POST" action="{{route('units.delete', ['id'=>$unit->id])}}">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger btn-sm" title="Delete now">
+                                                    <i class="fa fa-trash"></i></button>
+                                                @csrf
+                                            </form>
+                                        </div>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

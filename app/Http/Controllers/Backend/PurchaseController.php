@@ -55,7 +55,7 @@ class PurchaseController extends Controller
             $purchase->save();
         }
         $this->set_message('success', 'Purchases added successfully ');
-        return redirect()->route('purchases.view');
+        return redirect()->route('purchases.pending.list');
     }
 
     public function details($id){

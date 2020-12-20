@@ -127,11 +127,11 @@
             </td>
 
             <td>
-                <input type="number" min="1" value="" class="form-control text-right unit_price" name="unit_price[]">
+                <input type="number" min="1" value="" class="form-control text-right unit_price" name="unit_price[]" required>
             </td>
 
             <td>
-                <input type="text"  class="form-control " name="description[]">
+                <input type="text"  class="form-control " name="description[]" required>
             </td>
 
             <td>

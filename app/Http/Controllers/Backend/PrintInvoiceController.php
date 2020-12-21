@@ -19,4 +19,21 @@ class PrintInvoiceController extends Controller
         $pdf->SetProtection(['copy', 'print'], '', 'pass');
         return $pdf->stream('document.pdf');
     }
+
+    public function dailyReport(){
+        return view('backend.invoice.daily-invoice-report');
+    }
+
+    public function dailyReportPdf(Request $request){
+        $starting_date =  date('Y-m-d', strtotime($request->input('starting_date')));
+        $ending_date=  date('Y-m-d', strtotime($request->input('ending_date')));
+
+        $data['invoices'] = Invoice::whereBetween('date', [$starting_date, $ending_date])->where('status', 1)->get();
+        $data['starting_date'] = $starting_date;
+        $data['ending_date']= $ending_date;
+
+        $pdf = PDF::loadView('backend.pdf.daily-invoice-pdf', $data);
+        $pdf->SetProtection(['copy', 'print'], '', 'pass');
+        return $pdf->stream('document.pdf');
+    }
 }

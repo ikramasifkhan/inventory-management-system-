@@ -171,7 +171,7 @@
             <td colspan="3" style="text-align: right"><strong>Total:</strong></td>
 
             <td style="text-align: center">
-                {{(float)$sub_total}}
+                {{number_format((float)$sub_total, 2, '.', '')}}
             </td>
         </tr>
 

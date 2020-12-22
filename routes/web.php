@@ -13,6 +13,7 @@ use App\Http\Controllers\Backend\PurchaseController;
 use App\Http\Controllers\Backend\DefaultController;
 use App\Http\Controllers\Backend\InvoiceController;
 use App\Http\Controllers\Backend\PrintInvoiceController;
+use App\Http\Controllers\Backend\StockController;
 
 Route::get('/', [FrontendController::class, 'index'])->name('/');
 
@@ -106,6 +107,16 @@ Route::middleware('auth')->group(function (){
         Route::delete('/delete/{id}', [InvoiceController::class, 'destroy'])->name('delete');
         Route::get('/print/list', [PrintInvoiceController::class, 'index'])->name('print.list');
         Route::get('/print/{id}', [PrintInvoiceController::class, 'printInvoice'])->name('print');
+        Route::get('/daily/report', [PrintInvoiceController::class, 'dailyReport'])->name('daily.report');
+        Route::post('/daily/report/pdf', [PrintInvoiceController::class, 'dailyReportPdf'])->name('daily.report.pdf');
+    });
+
+    Route::name('stock.')->prefix('stock')->group(function (){
+        Route::get('/report', [StockController::class, 'stockReport'])->name('report');
+        Route::get('/report/pdf', [StockController::class, 'stockReportPdf'])->name('report.pdf');
+        Route::get('/report/supplier/product/wise', [StockController::class, 'stockReportSupplierOrProductWise'])->name('report.supplierOrProductWise');
+        Route::post('/report/supplier/wise/pdf', [StockController::class, 'stockReportSupplierWisePdf'])->name('report.supplierWisePdf');
+        Route::post('/report/product/wise/pdf', [StockController::class, 'stockReportProductWisePdf'])->name('report.productWisePdf');
     });
 });
 

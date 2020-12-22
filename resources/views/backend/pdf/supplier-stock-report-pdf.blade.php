@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Daily invoice report</title>
+    <title>Supplier wise product report</title>
 
     <style>
         .invoice-box {
@@ -104,23 +104,22 @@
 <div class="invoice-box">
     <table cellpadding="0" cellspacing="0">
         <tr class="top">
-            <td colspan="6">
+            <td colspan="7">
                 <table>
                     <tr>
                         <td class="title" colspan="2">{{config('app.name')}}</td>
                     </tr>
                     <tr>
                         <td style="font-size: 16px">
-                            Product stock report
+                            Supplier wise product stock report
                         </td>
                         <td>
-
+                            <b>Supplier name :</b> {{$products['0']['supplier']['name']}}
                         </td>
                     </tr>
                 </table>
             </td>
         </tr>
-
         <tr class="heading">
             <td width="10%" style="text-align: left">
                 SL no
@@ -134,8 +133,12 @@
                 Category name
             </td>
 
-            <td width="20%" style="text-align: center">
-                Supplier name
+            <td width="10%" style="text-align: center">
+                In qty
+            </td>
+
+            <td width="10%" style="text-align: center">
+                Out qty
             </td>
 
             <td width="10%" style="text-align: center">
@@ -146,10 +149,17 @@
                 Unit
             </td>
         </tr>
-        {{--        @php--}}
-        {{--            $total = 0;--}}
-        {{--        @endphp--}}
         @foreach($products as $key=>$product)
+            @php
+                $buying_total = \App\Models\Purchase::where('category_id', $product->category_id)
+                    ->where('product_id', $product->id)
+                    ->where('status', 1)
+                    ->sum('quantity');
+                $selling_total = \App\Models\InvoiceDetail::where('category_id', $product->category_id)
+                        ->where('product_id', $product->id)
+                        ->where('status', 1)
+                        ->sum('selling_qty');
+            @endphp
         <tr class="item">
             <td width="10%" style="text-align: left">
                 {{$key = $key+1}}
@@ -158,13 +168,19 @@
             <td width="30%" style="text-align: center">
                 {{$product->name}}
             </td>
-            <td width="20%" style="text-align: center">
+            <td width="10%" style="text-align: center">
                 {{$product->category->name}}
             </td>
-            <td width="20%" style="text-align: center">
-                {{$product->supplier->name}}
+
+            <td width="10%" style="text-align: center">
+                {{$buying_total}}
             </td>
-            <td width="20%" style="text-align: center">
+
+            <td width="10%" style="text-align: center">
+                {{$selling_total}}
+            </td>
+
+            <td width="10%" style="text-align: center">
                 {{$product->quantity}}
             </td>
 

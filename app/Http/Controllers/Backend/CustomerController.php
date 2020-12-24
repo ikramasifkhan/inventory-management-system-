@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\Payment;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use PDF;
 class CustomerController extends Controller
 {
     public function index(){
@@ -81,5 +82,17 @@ class CustomerController extends Controller
         $customer->delete();
         $this->set_message('success','Info deleted successfully');
         return redirect()->route('customers.view');
+    }
+
+    public function credit(){
+        $data['payments'] = Payment::whereIn('paid_status', ['full_due', 'partial_paid'])->get();
+        return view('backend.customer.credit', $data);
+    }
+
+    public function creditPdf(){
+        $data['payments'] = Payment::whereIn('paid_status', ['full_due', 'partial_paid'])->get();
+        $pdf = PDF::loadView('backend.pdf.customer-credit-pdf', $data);
+        $pdf->SetProtection(['copy', 'print'], '', 'pass');
+        return $pdf->stream('document.pdf');
     }
 }

@@ -55,6 +55,8 @@ Route::middleware('auth')->group(function (){
         Route::get('/edit/{id}', [CustomerController::class, 'edit'])->name('edit');
         Route::put('/update/{id}', [CustomerController::class, 'update'])->name('update');
         Route::delete('/delete/{id}', [CustomerController::class, 'destroy'])->name('delete');
+        Route::get('/credit', [CustomerController::class, 'credit'])->name('credit');
+        Route::get('/credit/pdf', [CustomerController::class, 'creditPdf'])->name('credit.pdf');
     });
 
     Route::name('units.')->prefix('units')->group(function (){
@@ -90,6 +92,8 @@ Route::middleware('auth')->group(function (){
         Route::get('/pending', [PurchaseController::class, 'pendingList'])->name('pending.list');
         Route::get('/approve/{id}', [PurchaseController::class, 'approve'])->name('approve');
         Route::delete('/delete/{id}', [PurchaseController::class, 'destroy'])->name('delete');
+        Route::get('/report', [PurchaseController::class, 'purchaseReport'])->name('report');
+        Route::post('/report/pdf', [PurchaseController::class, 'purchaseReportPdf'])->name('report.pdf');
     });
 
     Route::get('/get/category', [DefaultController::class, 'getCategory'])->name('get_category');

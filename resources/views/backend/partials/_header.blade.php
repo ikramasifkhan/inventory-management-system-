@@ -170,6 +170,16 @@
                             </a>
                         </li>
                     </ul>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('customers.credit')}}"
+                               class="nav-link {{($route == 'customers.credit'?'active':'')}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Credit customers</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
                 <li class="nav-item has-treeview {{($prefix =='/units' ? 'menu-open': '')}}">
@@ -252,6 +262,16 @@
                                class="nav-link {{($route == 'purchases.pending.list'?'active':'')}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Approval purchase</p>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('purchases.report')}}"
+                               class="nav-link {{($route == 'purchases.report'?'active':'')}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Daily purchase report</p>
                             </a>
                         </li>
                     </ul>

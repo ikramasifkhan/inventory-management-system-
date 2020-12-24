@@ -11,6 +11,7 @@ use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use PDF;
 
 class PurchaseController extends Controller
 {
@@ -87,5 +88,20 @@ class PurchaseController extends Controller
         return redirect()->route('purchases.view');
     }
 
+    public function purchaseReport(){
+        return view('backend.purchase.report');
+    }
 
+    public function purchaseReportPdf(Request $request){
+        $start_date = date('Y-m-d', strtotime($request->input('starting_date')));
+        $end_date = date('Y-m-d', strtotime($request->input('ending_date')));
+
+        $data['purchases'] = Purchase::whereBetween('date', [$start_date, $end_date])
+            ->where('status', 1)->get();
+        $data['start_date'] = $start_date;
+        $data['end_date'] = $end_date;
+        $pdf = PDF::loadView('backend.pdf.purchases-report-pdf', $data);
+        $pdf->SetProtection(['copy', 'print'], '', 'pass');
+        return $pdf->stream('document.pdf');
+    }
 }

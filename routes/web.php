@@ -57,6 +57,8 @@ Route::middleware('auth')->group(function (){
         Route::delete('/delete/{id}', [CustomerController::class, 'destroy'])->name('delete');
         Route::get('/credit', [CustomerController::class, 'credit'])->name('credit');
         Route::get('/credit/pdf', [CustomerController::class, 'creditPdf'])->name('credit.pdf');
+        Route::get('/invoice/edit/{id}', [CustomerController::class, 'editInvoice'])->name('invoice.edit');
+        Route::put('/invoice/update/{id}', [CustomerController::class, 'updateInvoice'])->name('invoice.update');
     });
 
     Route::name('units.')->prefix('units')->group(function (){

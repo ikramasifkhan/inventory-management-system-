@@ -53,7 +53,7 @@
                                 <td>{{date('d -M -Y', strtotime($payment->invoice->invoice_no))}}</td>
                                 <td class="text-right">{{$payment->due_amount}} TK</td>
                                 <td>
-{{--                                    <a class="fa fa-edit btn btn-info btn-sm" title="Edit now" href="{{route('customers.edit', ['id'=>$customer->id])}}"></a>--}}
+                                    <a class="fa fa-edit btn btn-info btn-sm" title="Edit now" href="{{route('customers.invoice.edit', ['id'=>$payment->invoice_id])}}"></a>
 {{--                                    <form method="POST" action="{{route('customers.delete', ['id'=>$customer->id])}}">--}}
 {{--                                        @method('DELETE')--}}
 {{--                                        <button type="submit" class="btn btn-danger btn-sm" title="Delete now"><i class="fa fa-trash"></i></button>--}}

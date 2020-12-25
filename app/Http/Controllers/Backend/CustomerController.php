@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Payment;
+use App\Models\PaymentDetail;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use PDF;
 class CustomerController extends Controller
@@ -94,5 +96,58 @@ class CustomerController extends Controller
         $pdf = PDF::loadView('backend.pdf.customer-credit-pdf', $data);
         $pdf->SetProtection(['copy', 'print'], '', 'pass');
         return $pdf->stream('document.pdf');
+    }
+
+    public function editInvoice($id){
+        $data['payment'] = Payment::where('invoice_id', $id)->first();
+
+        return view('backend.customer.edit-invoice', $data);
+    }
+
+    public function updateInvoice($id, Request $request){
+
+        if($request->new_paid_amount < $request->paid_amount){
+            $this->set_message('danger', 'Sorry you insert maximum value');
+            return redirect()->back();
+        }
+
+        $payment = Payment::where('invoice_id', $id)->first();
+        $payment_details = new PaymentDetail();
+
+        $exiting_paid_amount = $payment->paid_amount;
+        $exiting_due_amount = $payment->due_amount;
+        $payment->paid_status = $request->paid_status;
+
+        if($request->paid_status == 'full_paid'){
+            $request->validate([
+                'new_paid_amount' => 'required|numeric',
+                'date'=>'required|date'
+            ]);
+            $new_paid_amount = $request->new_paid_amount;
+            $payment->paid_amount = $exiting_paid_amount + $new_paid_amount;
+            $payment->due_amount = '0';
+            $payment_details->current_paid_amount = $new_paid_amount;
+        }
+        if($request->paid_status == 'partial_paid'){
+            $request->validate([
+                'paid_amount' => 'required|numeric',
+                'date'=>'required|date'
+            ]);
+            $new_paid_amount = $request->paid_amount;
+            $payment->paid_amount = $exiting_paid_amount + $new_paid_amount;
+            $payment->due_amount = $exiting_due_amount - $new_paid_amount;
+            $payment_details->current_paid_amount = $new_paid_amount;
+        }
+        $payment->save();
+        $payment_details->invoice_id = $id;
+        $payment_details->date = date('Y-m-d',strtotime($request->date));
+        $payment_details->updated_by = Auth::user()->id;
+
+        $payment_details->save();
+
+        $this->set_message('success', 'Invoice updated successfully');
+
+        return redirect()->route('customers.credit');
+
     }
 }

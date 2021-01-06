@@ -20,8 +20,7 @@ class CreateInvoicesTable extends Migration
             $table->longText('description')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('approved_by')->nullable();
-            $table->tinyInteger('
-            ')->default(0)->comment('0=Pending, 1=Approve');
+            $table->tinyInteger('status')->default(0)->comment('0=Pending, 1=Approve');
             $table->timestamps();
         });
     }

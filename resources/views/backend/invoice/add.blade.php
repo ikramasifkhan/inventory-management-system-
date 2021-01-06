@@ -43,7 +43,7 @@
                     <div class="form-group">
                         <label>Date</label>
                         <input type="date" name="date" class="form-control" id="date" placeholder="Enter date"
-                               value="{{$date}}" required>
+                               value="{{$date}}" readonly required>
                     </div>
 
                     <div class="form-group">
@@ -62,7 +62,6 @@
                             <option value="">Select product name</option>
                         </select>
                     </div>
-
                     <div class="form-group">
                         <label>Stock (KJ/PICS)</label>
                         <input type="text" name="current_stock" id="current_stock" readonly class="form-control">
@@ -192,11 +191,11 @@
             </td>
 
             <td>
-                <input type="number" min="1" value="1" class="form-control text-right selling_qty" name="selling_qty[]">
+                <input type="number" min="1"  value="1" class="form-control text-right selling_qty" name="selling_qty[]">
             </td>
 
             <td>
-                <input type="number" min="1" value="" class="form-control text-right unit_price" name="unit_price[]">
+                <input type="number" min="1" class="form-control text-right unit_price" name="unit_price[]" value="@{{ 1 }}">
             </td>
 
             <td>
@@ -308,6 +307,22 @@
     </script>
 
     <script type="text/javascript">
+        $(function () {
+            $(document).on('change', '#product_id', function () {
+                let product_id = $(this).val();
+                $.ajax({
+                    url:"{{route('check_product_price')}}",
+                    type: 'get',
+                    data:{product_id:product_id},
+                    success:function (data) {
+                        $('#price').val(data);
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
         $(document).on('change', '#paid_status', function () {
             let paid_status = $(this).val();
             if(paid_status == 'partial_paid'){
@@ -327,4 +342,6 @@
             }
         });
     </script>
+
+
 @endsection

@@ -24,6 +24,7 @@ class PurchaseController extends Controller
         $data['suppliers'] = Supplier::all();
         $data['units'] = Unit::all();
         $data['categories'] = Category::all();
+        $data['date'] = date('Y-m-d');
         return view('backend.purchase.add', $data);
     }
 
@@ -95,13 +96,27 @@ class PurchaseController extends Controller
     public function purchaseReportPdf(Request $request){
         $start_date = date('Y-m-d', strtotime($request->input('starting_date')));
         $end_date = date('Y-m-d', strtotime($request->input('ending_date')));
+        $today = date('Y-m-d');
 
-        $data['purchases'] = Purchase::whereBetween('date', [$start_date, $end_date])
-            ->where('status', 1)->get();
-        $data['start_date'] = $start_date;
-        $data['end_date'] = $end_date;
-        $pdf = PDF::loadView('backend.pdf.purchases-report-pdf', $data);
-        $pdf->SetProtection(['copy', 'print'], '', 'pass');
-        return $pdf->stream('document.pdf');
+        $tomorrow = date("Y-m-d", strtotime('+1 day', strtotime($today)));
+
+        if($start_date > $end_date){
+            $this->set_message('danger', 'Start date must not be greater than end date');
+            return redirect()->back();
+        }
+        if($tomorrow >= $end_date){
+            $data['purchases'] = Purchase::whereBetween('date', [$start_date, $end_date])
+                ->where('status', 1)->get();
+            $data['start_date'] = $start_date;
+            $data['end_date'] = $end_date;
+            $pdf = PDF::loadView('backend.pdf.purchases-report-pdf', $data);
+            $pdf->SetProtection(['copy', 'print'], '', 'pass');
+            return $pdf->stream('document.pdf');
+
+        }else{
+            $this->set_message('danger', 'End date is not correct');
+            return redirect()->back();
+        }
+
     }
 }

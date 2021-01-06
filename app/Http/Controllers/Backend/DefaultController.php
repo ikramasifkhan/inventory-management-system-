@@ -27,4 +27,12 @@ class DefaultController extends Controller
 
         return response()->json($stock);
     }
+
+    public function getPrice(Request $request){
+        $product_id = $request->product_id;
+
+        $price = Product::where('id', $product_id)->first();
+
+        return response()->json($price);
+    }
 }

@@ -38,7 +38,7 @@
                     <div class="form-group">
                         <label>Date</label>
                         <input type="date" name="date" class="form-control" id="date" placeholder="Enter date"
-                               value="{{old('date')}}" required>
+                               value="{{$date}}" required readonly>
                     </div>
 
                     <div class="form-group">

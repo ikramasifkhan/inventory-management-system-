@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    Credit customers
+    Padi customers
 @endsection
 
 @section('content')
@@ -10,12 +10,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Manage customer</h1>
+                    <h1 class="m-0 text-dark">Paid customer</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                        <li class="breadcrumb-item active">Credit customers</li>
+                        <li class="breadcrumb-item active">Paid customers</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -27,8 +27,8 @@
             <div class="card col-12">
                 <div class="card-header">
                     <h3 class="text-info">
-                        Customers List
-                        <a class="btn btn-info float-right" href="{{route('customers.credit.pdf')}}" target="_blank"><i class="fa fa-download"></i> Download pdf</a>
+                        Paid customers List
+                        <a class="btn btn-info float-right" href="{{route('customers.paid.pdf')}}" target="_blank"><i class="fa fa-download"></i> Download pdf</a>
                     </h3>
                     @include('_errors')
                 </div>
@@ -39,7 +39,7 @@
                             <th>Name</th>
                             <th>Invoice no</th>
                             <th>Date</th>
-                            <th class="text-right">Due amount</th>
+                            <th class="text-right">Paid amount</th>
                             <th>Action</th>
                         </tr>
                         @php
@@ -51,18 +51,17 @@
                                 <td>{{$payment->customer->name}} ({{$payment->customer->mobile}})</td>
                                 <td>Invoice no# {{$payment->invoice->invoice_no}}</td>
                                 <td>{{date('d -M -Y', strtotime($payment->invoice->invoice_no))}}</td>
-                                <td class="text-right">{{$payment->due_amount}} TK</td>
+                                <td class="text-right">{{$payment->paid_amount}} TK</td>
                                 <td>
-                                    <a class="fa fa-edit btn btn-primary btn-sm" title="Edit now" href="{{route('customers.invoice.edit', ['id'=>$payment->invoice_id])}}"></a>
                                     <a class="fa fa-eye btn btn-info btn-sm" title="View details" href="{{route('customers.invoice.details.pdf', ['id'=>$payment->invoice_id])}}" target="_blank"></a>
                                 </td>
                             </tr>
                             @php
-                                $due_total = $due_total+$payment->due_amount;
+                                $due_total = $due_total+$payment->paid_amount;
                             @endphp
                         @endforeach
                         <tr>
-                            <td colspan="4" style="text-align: right"><b>Total due</b></td>
+                            <td colspan="4" style="text-align: right"><b>Total paid</b></td>
                             <td class="text-right">{{number_format($due_total, 2)}} TK</td>
                             <td></td>
                         </tr>
@@ -70,4 +69,5 @@
                 </div>
             </div>
 @endsection
+
 

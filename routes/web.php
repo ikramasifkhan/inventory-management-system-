@@ -59,6 +59,9 @@ Route::middleware('auth')->group(function (){
         Route::get('/credit/pdf', [CustomerController::class, 'creditPdf'])->name('credit.pdf');
         Route::get('/invoice/edit/{id}', [CustomerController::class, 'editInvoice'])->name('invoice.edit');
         Route::put('/invoice/update/{id}', [CustomerController::class, 'updateInvoice'])->name('invoice.update');
+        Route::get('/invoice/details/pdf/{id}', [CustomerController::class, 'invoiceDetailsPdf'])->name('invoice.details.pdf');
+        Route::get('/paid', [CustomerController::class, 'paidCustomer'])->name('paid');
+        Route::get('/paid/pdf', [CustomerController::class, 'paidCustomerPdf'])->name('paid.pdf');
     });
 
     Route::name('units.')->prefix('units')->group(function (){
@@ -101,6 +104,7 @@ Route::middleware('auth')->group(function (){
     Route::get('/get/category', [DefaultController::class, 'getCategory'])->name('get_category');
     Route::get('/get/product', [DefaultController::class, 'getProduct'])->name('get_product');
     Route::get('/get/stock', [DefaultController::class, 'getStock'])->name('check_product_stock');
+    Route::get('/get/price', [DefaultController::class, 'getPrice'])->name('check_product_price');
 
     Route::name('invoice.')->prefix('invoice')->group(function (){
         Route::get('/view', [InvoiceController::class, 'index'])->name('view');
@@ -124,5 +128,8 @@ Route::middleware('auth')->group(function (){
         Route::post('/report/supplier/wise/pdf', [StockController::class, 'stockReportSupplierWisePdf'])->name('report.supplierWisePdf');
         Route::post('/report/product/wise/pdf', [StockController::class, 'stockReportProductWisePdf'])->name('report.productWisePdf');
     });
+
+    Route::get('/supplier/dashboard', [SupplierController::class, 'supplierDashboard'])->name('supplier.dashboard');
 });
+
 

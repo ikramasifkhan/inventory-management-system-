@@ -23,7 +23,7 @@ class CreatePurchasesTable extends Migration
             $table->string('description', 124);
             $table->double('quantity');
             $table->decimal('unit_price');
-            $table->decimal('total_price');
+            $table->bigInteger('total_price');
             $table->tinyInteger('status')->default(0)->comment('0=Pending, 1=Approved');
             $table->integer('create_by')->nullable(1);
             $table->integer('updated_by')->nullable(1);

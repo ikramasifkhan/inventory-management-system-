@@ -21,7 +21,7 @@ class CreateInvoiceDetailsTable extends Migration
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->integer('selling_qty');
             $table->decimal('unit_price');
-            $table->decimal('total_price');
+            $table->bigInteger('total_price');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });

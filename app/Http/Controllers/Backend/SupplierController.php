@@ -81,4 +81,8 @@ class SupplierController extends Controller
         $this->set_message('success','Info deleted successfully');
         return redirect()->route('suppliers.view');
     }
+
+    public function supplierDashboard(){
+        return view('supplier.dashboard');
+    }
 }

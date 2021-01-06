@@ -46,12 +46,26 @@
 
                             <div class="form-group col-md-6">
                                 <label>Ending date</label>
-                                <input type="date" name="ending_date" class="form-control" required>
+                                <input type="date" id="end_date" name="ending_date" class="form-control" required>
                             </div>
                         </div>
-                        <button class="btn btn-success">Search</button>
+                        <button class="btn btn-success" id="report_button" onclick="dateValidation()">Search</button>
                     </form>
                 </div>
             </div>
+{{--            <script>--}}
+{{--                function dateValidation() {--}}
+{{--                    let endDate = $('#end_date').val();--}}
+
+{{--                    //let myDate = new Date(endDate);--}}
+{{--                    let today = new Date();--}}
+{{--                    if ( endDate > today ) {--}}
+
+{{--                        $('#end_date').after('<p>You cannot enter a date in the future!.</p>');--}}
+{{--                        return false;--}}
+{{--                    }--}}
+{{--                    return true;--}}
+{{--                }--}}
+{{--            </script>--}}
 @endsection
 

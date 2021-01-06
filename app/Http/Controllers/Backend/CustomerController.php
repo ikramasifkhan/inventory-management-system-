@@ -148,6 +148,24 @@ class CustomerController extends Controller
         $this->set_message('success', 'Invoice updated successfully');
 
         return redirect()->route('customers.credit');
+    }
 
+    public function invoiceDetailsPdf($id){
+        $data['payment'] = Payment::where('invoice_id', $id)->first();
+        $pdf = PDF::loadView('backend.pdf.customer-invoice-details', $data);
+        $pdf->SetProtection(['copy', 'print'], '', 'pass');
+        return $pdf->stream('document.pdf');
+    }
+
+    public function paidCustomer(){
+        $data['payments'] = Payment::where('paid_status', '!=', 'full_due)')->get();
+        return view('backend.customer.paid', $data);
+    }
+
+    public function paidCustomerPdf(){
+        $data['payments'] = Payment::where('paid_status', '!=', 'full_due)')->get();
+        $pdf = PDF::loadView('backend.pdf.customer-paid-pdf', $data);
+        $pdf->SetProtection(['copy', 'print'], '', 'pass');
+        return $pdf->stream('customer-paid.pdf');
     }
 }

@@ -29,14 +29,13 @@ class PrintInvoiceController extends Controller
         $ending_date=  date('Y-m-d', strtotime($request->input('ending_date')));
 
         $today = date('Y-m-d');
-
-        $tomorrow = date("Y-m-d", strtotime('+1 day', strtotime($today)));
+        //$tomorrow = date("Y-m-d", strtotime('+1 day', strtotime($today)));
 
         if($starting_date > $ending_date){
             $this->set_message('danger', 'Start date must not be greater than end date');
             return redirect()->back();
         }
-        if($tomorrow >= $ending_date){
+        if($today >= $ending_date){
             $data['invoices'] = Invoice::whereBetween('date', [$starting_date, $ending_date])->where('status', 1)->get();
             $data['starting_date'] = $starting_date;
             $data['ending_date']= $ending_date;

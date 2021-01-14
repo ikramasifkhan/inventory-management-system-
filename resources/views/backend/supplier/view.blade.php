@@ -28,8 +28,6 @@
                 <div class="card-header">
                     <h3 class="text-info">
                         Supplier list
-                        <a class="btn btn-info float-right" href="{{route('suppliers.add')}}"><i
-                                class="fa fa-arrow-circle-up"></i> Add supplier</a>
                     </h3>
                     @include('_errors')
                 </div>

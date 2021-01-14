@@ -73,7 +73,9 @@ class PurchaseController extends Controller
         $purchase = Purchase::findOrfail($id);
         $product = Product::where('id', $purchase->product_id)->first();
         $quantity = ((float)($purchase->quantity)) + ((float)($product->quantity));
+
         $product->quantity = $quantity;
+        $product->price = $purchase->unit_price;
         if($product->save()){
             $purchase->status =1;
             $purchase->save();
@@ -98,13 +100,13 @@ class PurchaseController extends Controller
         $end_date = date('Y-m-d', strtotime($request->input('ending_date')));
         $today = date('Y-m-d');
 
-        $tomorrow = date("Y-m-d", strtotime('+1 day', strtotime($today)));
+        //$tomorrow = date("Y-m-d", strtotime('+1 day', strtotime($today)));
 
         if($start_date > $end_date){
             $this->set_message('danger', 'Start date must not be greater than end date');
             return redirect()->back();
         }
-        if($tomorrow >= $end_date){
+        if($today >= $end_date){
             $data['purchases'] = Purchase::whereBetween('date', [$start_date, $end_date])
                 ->where('status', 1)->get();
             $data['start_date'] = $start_date;

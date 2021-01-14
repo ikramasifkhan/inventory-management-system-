@@ -23,7 +23,10 @@
     </div>
     <!-- /.content-header -->
 
-    <!-- Main content -->
+    @php
+    $count_product = \App\Models\Product::count('id');
+//return $count_product;
+    @endphp
     <section class="content">
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
@@ -32,14 +35,14 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>150</h3>
+                            <h3>{{$count_product}}</h3>
 
-                            <p>New Orders</p>
+                            <p>Existing products</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{route('products.view')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->

@@ -31,7 +31,7 @@ class DefaultController extends Controller
     public function getPrice(Request $request){
         $product_id = $request->product_id;
 
-        $price = Product::where('id', $product_id)->first();
+        $price = Product::where('id', $product_id)->first()->price;
 
         return response()->json($price);
     }

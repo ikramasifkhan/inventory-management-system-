@@ -180,7 +180,7 @@ class InvoiceController extends Controller
             $invoice_details = InvoiceDetail::where('id', $key)->first();
             $product = Product::where('id', $invoice_details->product_id)->first();
             if($product->quantity < $invoice_details->selling_qty){
-                $this->set_message('danger', 'Sorry you approve maximum value');
+                $this->set_message('danger', 'Sorry! These amount is currently unavailable. You have to purchase the same product to approve this invoice');
                 return redirect()->back();
             }
         }

@@ -12,24 +12,9 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{{route('home')}}" class="nav-link">Home</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Contact</a>
-        </li>
+
     </ul>
 
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-        <div class="input-group input-group-sm">
-            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-            <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        </div>
-    </form>
-
-    <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
@@ -148,63 +133,6 @@
                                class="nav-link {{($route == 'suppliers.view' ?'active':'')}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>View suppliers</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="nav-item has-treeview {{($prefix =='/customers' ? 'menu-open': '')}}">
-                    <a href="#" class="nav-link {{($prefix =='/customers' ? 'active': '')}}">
-                        <i class="nav-icon fas fa-copy"></i>
-                        <p>
-                            Manage customer
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{route('customers.view')}}"
-                               class="nav-link {{($route == 'customers.view'?'active':'')}}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>View customers</p>
-                            </a>
-                        </li>
-                    </ul>
-
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{route('customers.credit')}}"
-                               class="nav-link {{($route == 'customers.credit'?'active':'')}}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Credit customers</p>
-                            </a>
-                        </li>
-                    </ul>
-
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{route('customers.paid')}}"
-                               class="nav-link {{($route == 'customers.paid'?'active':'')}}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Paid customers</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="nav-item has-treeview {{($prefix =='/units' ? 'menu-open': '')}}">
-                    <a href="#" class="nav-link {{($prefix =='/units' ? 'active': '')}}">
-                        <i class="nav-icon fas fa-copy"></i>
-                        <p>
-                            Manage units
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{route('units.view')}}" class="nav-link {{($route == 'units.view'?'active':'')}}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>View units</p>
                             </a>
                         </li>
                     </ul>
@@ -360,6 +288,63 @@
                                class="nav-link {{($route == 'stock.report.supplierOrProductWise'?'active':'')}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Supplier/product</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview {{($prefix =='/customers' ? 'menu-open': '')}}">
+                    <a href="#" class="nav-link {{($prefix =='/customers' ? 'active': '')}}">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            Manage customer
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('customers.view')}}"
+                               class="nav-link {{($route == 'customers.view'?'active':'')}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>View customers</p>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('customers.credit')}}"
+                               class="nav-link {{($route == 'customers.credit'?'active':'')}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Credit customers</p>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('customers.paid')}}"
+                               class="nav-link {{($route == 'customers.paid'?'active':'')}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Paid customers</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview {{($prefix =='/units' ? 'menu-open': '')}}">
+                    <a href="#" class="nav-link {{($prefix =='/units' ? 'active': '')}}">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            Manage units
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('units.view')}}" class="nav-link {{($route == 'units.view'?'active':'')}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>View units</p>
                             </a>
                         </li>
                     </ul>

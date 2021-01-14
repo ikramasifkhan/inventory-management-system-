@@ -68,6 +68,10 @@
                     </div>
 
                     <div class="form-group">
+                        <input type="hidden" name="unit_price" value="1" id="unit_price" readonly class="form-control">
+                    </div>
+
+                    <div class="form-group">
                         <button class="btn btn-info btn-block addeventmore">Add item</button>
                     </div>
                 </div>
@@ -191,11 +195,11 @@
             </td>
 
             <td>
-                <input type="number" min="1"  value="1" class="form-control text-right selling_qty" name="selling_qty[]" required>
+                <input type="number" min="1" max="@{{ current_stock }}" value="1" class="form-control text-right selling_qty" name="selling_qty[]" required>
             </td>
 
             <td>
-                <input type="number" min="1" class="form-control text-right unit_price" name="unit_price[]" value="@{{ 1 }}" reaquired>
+                <input type="number" min="1" class="form-control text-right unit_price" name="unit_price[]"  value="@{{ unit_price }}" reaquired>
             </td>
 
             <td>
@@ -217,7 +221,8 @@
                 let category_name = $('#category_id').find('option:selected').text();
                 let product_id = $('#product_id').val();
                 let product_name = $('#product_id').find('option:selected').text();
-
+                let current_stock = $('#current_stock').val();
+                let unit_price = $('#unit_price').val();
                 let source = $("#document-template").html();
                 let template = Handlebars.compile(source);
 
@@ -228,6 +233,8 @@
                     category_name:category_name,
                     product_id:product_id,
                     product_name:product_name,
+                    current_stock:current_stock,
+                    unit_price:unit_price,
                 };
 
                 let html = template(data);
@@ -315,7 +322,7 @@
                     type: 'get',
                     data:{product_id:product_id},
                     success:function (data) {
-                        $('#price').val(data);
+                        $('#unit_price').val(data);
                     }
                 });
             });

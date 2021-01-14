@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>Supplier panel</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{asset('public/supplier')}}/css/bootstrap.min.css" rel="stylesheet">
@@ -23,8 +23,8 @@
 <div class="d-flex" id="wrapper">
 
     <!-- Sidebar -->
-    @include('supplier.partials._sidebar')
-    <!-- /#sidebar-wrapper -->
+@include('supplier.partials._sidebar')
+<!-- /#sidebar-wrapper -->
 
     <!-- Page Content -->
     <div id="page-content-wrapper">
@@ -51,3 +51,4 @@
 </body>
 
 </html>
+

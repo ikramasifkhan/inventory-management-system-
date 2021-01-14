@@ -22,7 +22,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::middleware('auth')->group(function (){
+Route::middleware(['auth', 'authadmin'])->group(function (){
     Route::name('users.')->prefix('users')->group(function (){
         Route::get('/view', [UserController::class, 'index'])->name('view');
         Route::get('/add', [UserController::class, 'add'])->name('add');
@@ -128,8 +128,11 @@ Route::middleware('auth')->group(function (){
         Route::post('/report/supplier/wise/pdf', [StockController::class, 'stockReportSupplierWisePdf'])->name('report.supplierWisePdf');
         Route::post('/report/product/wise/pdf', [StockController::class, 'stockReportProductWisePdf'])->name('report.productWisePdf');
     });
-
-    Route::get('/supplier/dashboard', [SupplierController::class, 'supplierDashboard'])->name('supplier.dashboard');
+    //Route::get('/supplier/dashboard', [SupplierController::class, 'supplierDashboard'])->name('supplier.dashboard');
 });
-
+Route::middleware(['auth', 'supplier'])->group(function (){
+    Route::get('/supplier/dashboard', [SupplierController::class, 'supplierDashboard'])->name('supplier.dashboard');
+    Route::get('/supplier/edit/{id}', [SupplierController::class, 'supplierPanelEdit'])->name('suppliers.panel.edit');
+    Route::post('/supplier/update/{id}', [SupplierController::class, 'supplierPanelUpdate'])->name('supplier.panel.update');
+});
 

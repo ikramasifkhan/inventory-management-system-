@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Supplier;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -29,7 +32,8 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    //protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -38,6 +42,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
+
         $this->middleware('guest');
     }
 
@@ -64,10 +69,49 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+//        $user =  User::create([
+//            'name' => $data['name'],
+//            'email' => $data['email'],
+//            'password' => Hash::make($data['password']),
+//        ]);
+
+        $user =  DB::transaction(function() use ($data) {
+
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password'])
+            ]);
+
+            Supplier::create([
+                'name' => 'ABC COMPANY',
+                'user_id' => $user->id,
+                'mobile'=>Str::random(11),
+                'email'=>$user->email,
+                'address'=> 'Example house, Example Road, Example Area',
+            ]);
+
+            return $user;
+        });
+        return $user;
+
+
+
+//        $user = new User();
+//        $user->name = $data['name'];
+//        $user->email = $data['email'];
+//        $user->password = Hash::make($data['password']);
+//        DB::transaction(function () use ($user){
+//            if($user->save()){
+//              $supplier = new Supplier();
+//              $supplier->name = 'MR ABC';
+//              $supplier->user_id = $user->id;
+//              $supplier->mobile = Str::random(11);
+//              $supplier->email = $user->email;
+//              $supplier->address = 'Example house, Example Road, Example Area';
+//
+//              return $supplier->save();
+//            }
+//        });
     }
 }

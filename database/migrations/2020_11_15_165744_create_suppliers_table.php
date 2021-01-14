@@ -16,6 +16,7 @@ class CreateSuppliersTable extends Migration
         Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
             $table->string('name', 124);
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('mobile', 32)->unique();
             $table->string('email', 124)->unique()->nullable();
             $table->string('address', 255);

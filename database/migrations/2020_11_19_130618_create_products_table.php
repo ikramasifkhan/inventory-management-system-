@@ -19,7 +19,8 @@ class CreateProductsTable extends Migration
             $table->foreignId('unit_id')->constrained('units')->onDelete('cascade');
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->string('name', 124)->unique();
-            $table->double('quantity', 124)->default(0);
+            $table->double('quantity')->default(0);
+            $table->double('price')->default(0)->nullable();
             $table->tinyInteger('status')->default(1);
             $table->integer('create_by')->nullable(1);
             $table->integer('updated_by')->nullable(1);

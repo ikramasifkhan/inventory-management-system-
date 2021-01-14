@@ -39,6 +39,7 @@
                             <th>Sl no</th>
                             <th>Product name</th>
                             <th>Category name</th>
+                            <th>Product current price</th>
                             <th>Unit</th>
                             <th>Supplier name</th>
                             <th>Action</th>
@@ -48,6 +49,7 @@
                                 <td>{{$key = $key+1}}</td>
                                 <td>{{$product->name}}</td>
                                 <td>{{$product->category->name}}</td>
+                                <td>{{$product->price}}</td>
                                 <td>{{$product->unit->name}}</td>
                                 <td>{{$product->supplier->name}}</td>
                                 <td>

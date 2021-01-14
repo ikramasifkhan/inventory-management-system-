@@ -28,12 +28,26 @@ class PrintInvoiceController extends Controller
         $starting_date =  date('Y-m-d', strtotime($request->input('starting_date')));
         $ending_date=  date('Y-m-d', strtotime($request->input('ending_date')));
 
-        $data['invoices'] = Invoice::whereBetween('date', [$starting_date, $ending_date])->where('status', 1)->get();
-        $data['starting_date'] = $starting_date;
-        $data['ending_date']= $ending_date;
+        $today = date('Y-m-d');
 
-        $pdf = PDF::loadView('backend.pdf.daily-invoice-pdf', $data);
-        $pdf->SetProtection(['copy', 'print'], '', 'pass');
-        return $pdf->stream('document.pdf');
+        $tomorrow = date("Y-m-d", strtotime('+1 day', strtotime($today)));
+
+        if($starting_date > $ending_date){
+            $this->set_message('danger', 'Start date must not be greater than end date');
+            return redirect()->back();
+        }
+        if($tomorrow >= $ending_date){
+            $data['invoices'] = Invoice::whereBetween('date', [$starting_date, $ending_date])->where('status', 1)->get();
+            $data['starting_date'] = $starting_date;
+            $data['ending_date']= $ending_date;
+
+            $pdf = PDF::loadView('backend.pdf.daily-invoice-pdf', $data);
+            $pdf->SetProtection(['copy', 'print'], '', 'pass');
+            return $pdf->stream('document.pdf');
+        }else{
+            $this->set_message('danger', 'End date is not correct');
+            return redirect()->back();
+        }
+
     }
 }

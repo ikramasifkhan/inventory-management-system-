@@ -26,8 +26,15 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
+    //protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo;
+//    protected function redirectTo(){
+//        if(auth()->user()->role == 'Admin'){
+//            return redirect()->route('home');
+//        }else{
+//            return redirect()->route('supplier.dashboard');
+//        }
+    //}
     /**
      * Create a new controller instance.
      *
@@ -35,6 +42,11 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        if(auth()->check() && auth()->user()->role === 'Admin'){
+            $this->redirectTo = route('home');
+        }else{
+            $this->redirectTo = route('supplier.dashboard');
+        }
         $this->middleware('guest')->except('logout');
     }
 }

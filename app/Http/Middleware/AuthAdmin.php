@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class Supplier
+class AuthAdmin
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class Supplier
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check() && Auth::user()->role === 'user'){
+        if(Auth::check() && Auth::user()->role === 'Admin'){
             return $next($request);
         }else{
             return redirect()->route('/');

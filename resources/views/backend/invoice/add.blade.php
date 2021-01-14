@@ -27,7 +27,7 @@
             <div class="card col-12">
                 <div class="card-header">
                     <h3 class="text-info">
-                        Create purchase
+                        Create a new invoice
                         <a class="btn btn-info float-right" href="{{route('invoice.view')}}"><i class="fa fa-list"></i>
                             Invoices list</a>
                     </h3>
@@ -191,11 +191,11 @@
             </td>
 
             <td>
-                <input type="number" min="1"  value="1" class="form-control text-right selling_qty" name="selling_qty[]">
+                <input type="number" min="1"  value="1" class="form-control text-right selling_qty" name="selling_qty[]" required>
             </td>
 
             <td>
-                <input type="number" min="1" class="form-control text-right unit_price" name="unit_price[]" value="@{{ 1 }}">
+                <input type="number" min="1" class="form-control text-right unit_price" name="unit_price[]" value="@{{ 1 }}" reaquired>
             </td>
 
             <td>

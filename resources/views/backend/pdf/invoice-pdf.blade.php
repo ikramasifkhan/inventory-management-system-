@@ -107,7 +107,7 @@
             <td colspan="4">
                 <table>
                     <tr>
-                        <td class="title" colspan="2">{{config('app.name')}}</td>
+                        <td class="title" colspan="2">ABC SHOP</td>
                     </tr>
                     <tr>
                         <td>

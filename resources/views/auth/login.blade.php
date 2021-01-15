@@ -57,8 +57,10 @@
                                     <button type="submit" class="btn btn-info">
                                         {{ __('Login') }}
                                     </button>
+                                    <span style="float: right"><a href="{{route('register')}}" >Go to register</a></span>
                                 </div>
                             </form>
+
                         </div>
                     </div>
                 </div>
